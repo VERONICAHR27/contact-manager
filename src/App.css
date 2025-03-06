@@ -102,6 +102,10 @@
   border-radius: 5px;
 }
 
+.contact-item.selected {
+  background-color: #e0f7fa;
+}
+
 .contact-item h3 {
   margin: 0;
   font-size: 1.2em;
@@ -190,4 +194,62 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.pinned-contact {
+  border: 2px solid #000;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.pinned-contact h2 {
+  margin-top: 0;
+}
+
+.pinned-contact h3 {
+  margin: 10px 0;
+}
+
+.pinned-contact p {
+  margin: 5px 0;
+}
+
+.pinned-contact button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pinned-contact button:hover {
+  background-color: #0056b3;
+}
+
+
+.App {
+  text-align: center;
+}
+
+button {
+  margin: 20px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.contact-view {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.contact-pinned-view {
+  flex: 0 0 300px;
 }
