@@ -7,6 +7,7 @@ import './App.css';
 
 const App = () => {
   const [selectedContact, setSelectedContact] = useState(null);
+  const [pinnedContact, setPinnedContact] = useState(null);
   const [isCardView, setIsCardView] = useState(false);
 
   const handleContactClick = (contact) => {
@@ -17,6 +18,14 @@ const App = () => {
     setSelectedContact(null);
   };
 
+  const handleSelectContact = (contact) => {
+    setPinnedContact(contact);
+  };
+
+  const handleClearPinnedContact = () => {
+    setPinnedContact(null);
+  };
+
   const toggleView = () => {
     setIsCardView(!isCardView);
   };
@@ -25,14 +34,26 @@ const App = () => {
     <div className="App">
       <Header />
       <button onClick={toggleView}>
-        {isCardView ? 'Cambiar a vista de lista' : 'Cambiar a vista de tarjetas'}
+        {isCardView ? 'Switch to List View' : 'Switch to Card View'}
       </button>
-      {isCardView ? (
-        <ContactGrid onContactClick={handleContactClick} />
-      ) : (
-        <ContactList onContactClick={handleContactClick} />
-      )}
-      <ContactPinned contact={selectedContact} onClear={handleClearContact} />
+      <div className="content">
+        <div className="contact-view">
+          {isCardView ? (
+            <ContactGrid onContactClick={handleContactClick} onSelectContact={handleSelectContact} />
+          ) : (
+            <ContactList
+              onContactClick={handleContactClick}
+              onSelectContact={handleSelectContact}
+              selectedContact={selectedContact}
+            />
+          )}
+        </div>
+        <div className="contact-pinned-view">
+          {pinnedContact && (
+            <ContactPinned contact={pinnedContact} onClearContact={handleClearPinnedContact} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

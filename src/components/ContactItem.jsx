@@ -2,19 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const ContactItem = ({ contact }) => {
+const ContactItem = ({ contact, onSelectContact, isSelected }) => {
   return (
-    <div className="contact-item">
+    <div className={`contact-item ${isSelected ? 'selected' : ''}`}>
       <h3>{contact.fullname}</h3>
-          </div>
+      <button onClick={() => onSelectContact(contact)}>Select</button>
+    </div>
   );
 };
 
 ContactItem.propTypes = {
   contact: PropTypes.shape({
     fullname: PropTypes.string.isRequired,
-    
   }).isRequired,
+  onSelectContact: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool.isRequired,
 };
 
 export default ContactItem;
