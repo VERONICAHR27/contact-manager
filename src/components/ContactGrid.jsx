@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ContactItem from './ContactItem';
+import ContactCard from './ContactCard';
 import contacts from '../data/contact';
 
-const ContactList = ({ onContactClick }) => {
+const ContactGrid = ({ onContactClick }) => {
   return (
-    <div className="contact-list">
+    <div className="contact-grid">
       {contacts.map((contact, index) => (
         <div key={index} onClick={() => onContactClick(contact)}>
-          <ContactItem contact={contact} />
+          <ContactCard contact={contact} />
         </div>
       ))}
     </div>
   );
 };
 
-ContactList.propTypes = {
+ContactGrid.propTypes = {
   onContactClick: PropTypes.func.isRequired,
 };
 
-export default ContactList;
+export default ContactGrid;

@@ -1,43 +1,40 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import ContactList from './components/ContactList';
-import ContactCard from './components/ContactCard';
-import ContactDetail from './components/ContactDetail';
-import contacts from './data/contact';
+import ContactGrid from './components/ContactGrid';
+import ContactPinned from './components/ContactPinned';
 import './App.css';
 
-function App() {
-  const [view, setView] = useState('list');
-  const [featuredContact, setFeaturedContact] = useState(null);
-
-  const toggleView = () => {
-    setView(view === 'list' ? 'cards' : 'list');
-  };
+const App = () => {
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [isCardView, setIsCardView] = useState(false);
 
   const handleContactClick = (contact) => {
-    setFeaturedContact(contact);
+    setSelectedContact(contact);
+  };
+
+  const handleClearContact = () => {
+    setSelectedContact(null);
+  };
+
+  const toggleView = () => {
+    setIsCardView(!isCardView);
   };
 
   return (
-    <>
+    <div className="App">
       <Header />
       <button onClick={toggleView}>
-        Alternar Vista
+        {isCardView ? 'Cambiar a vista de lista' : 'Cambiar a vista de tarjetas'}
       </button>
-      <div className="card">
-        {view === 'list' ? (
-          <ContactList contacts={contacts} onContactClick={handleContactClick} />
-        ) : (
-          <div className="contact-cards">
-            {contacts.map((contact, index) => (
-              <ContactCard key={index} contact={contact} onContactClick={handleContactClick} />
-            ))}
-          </div>
-        )}
-        {featuredContact && <ContactDetail contact={featuredContact} />}
-      </div>
-    </>
+      {isCardView ? (
+        <ContactGrid onContactClick={handleContactClick} />
+      ) : (
+        <ContactList onContactClick={handleContactClick} />
+      )}
+      <ContactPinned contact={selectedContact} onClear={handleClearContact} />
+    </div>
   );
-}
+};
 
 export default App;
