@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 const ContactPinned = ({ contact, onClearContact }) => {
   if (!contact) {
-    return <div className="contact-pinned">No contact selected</div>;
+    return null; // No mostrar nada si no hay contacto seleccionado
   }
 
   return (

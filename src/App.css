@@ -1,105 +1,78 @@
-#root {
+:root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.App {
+  text-align: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  margin: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-  margin-top: 2em;
-}
-
-.contact-cards {
+.content {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.contact-card {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.contact-card h3 {
-  margin-top: 0;
-}
-
-.contact-detail {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin: 1rem 0;
-  background-color: #f9f9f9;
-}
-
-.header {
-  display:block;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #282c34;
+  align-items: flex-start;
+}
+
+.column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.contact-form {
+  margin: 20px 0;
+}
+
+.contact-form div {
+  margin-bottom: 10px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.contact-form .error {
+  color: red;
+  font-size: 0.9em;
+}
+
+.contact-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.header h1 {
-  margin: 0;
+.contact-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
-
-.header nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-
-.header nav ul li a {
-  color: white;
-  text-decoration: none;
-}
-
 
 .contact-item {
   border: 1px solid #ccc;
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap; /* Evita que el texto se envuelva */
+  overflow: hidden; /* Oculta el texto que se desborda */
+  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
 }
 
 .contact-item.selected {
@@ -109,34 +82,10 @@
 .contact-item h3 {
   margin: 0;
   font-size: 1.2em;
+  white-space: nowrap; /* Evita que el texto se envuelva */
+  overflow: hidden; /* Oculta el texto que se desborda */
+  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
 }
-
-.contact-item p {
-  margin: 5px 0;
-}
-
-
-
-.contact-pinned {
-  border: 2px solid #000;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.contact-pinned h2 {
-  margin-top: 0;
-}
-
-.contact-pinned h3 {
-  margin: 10px 0;
-}
-
-.contact-pinned p {
-  margin: 5px 0;
-}
-
 
 .contact-pinned {
   border: 2px solid #000;
@@ -172,6 +121,143 @@
   background-color: #0056b3;
 }
 
+.contact-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-card h3 {
+  margin-top: 0;
+}
+
+.contact-card p {
+  margin: 5px 0;
+}
+
+.contact-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-card button:hover {
+  background-color: #0056b3;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 20px; /* Espacio entre las tarjetas */
+}
+
+.read-the-docs {
+  color: #888;
+  margin-top: 2em;
+}
+
+.contact-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-card h3 {
+  margin-top: 0;
+}
+
+.contact-detail {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #f9f9f9;
+}
+
+.header {
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #282c34;
+  color: white;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.contact-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap; /* Evita que el texto se envuelva */
+  overflow: hidden; /* Oculta el texto que se desborda */
+  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
+}
+
+.contact-item.selected {
+  background-color: #bcddeb;
+}
+
+.contact-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+  white-space: nowrap; /* Evita que el texto se envuelva */
+  overflow: hidden; /* Oculta el texto que se desborda */
+  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
+}
+
+.contact-pinned {
+  border: 2px solid #000;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.contact-pinned h2 {
+  margin-top: 0;
+}
+
+.contact-pinned h3 {
+  margin: 10px 0;
+}
+
+.contact-pinned p {
+  margin: 5px 0;
+}
+
+.contact-pinned button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-pinned button:hover {
+  background-color: #0056b3;
+}
 
 .contact-card {
   border: 1px solid #ccc;
@@ -190,10 +276,24 @@
   margin: 5px 0;
 }
 
+.contact-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-card button:hover {
+  background-color: #0056b3;
+}
+
 .contact-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 20px; /* Espacio entre las tarjetas */
 }
 
 .pinned-contact {
@@ -230,7 +330,6 @@
   background-color: #0056b3;
 }
 
-
 .App {
   text-align: center;
 }
@@ -252,4 +351,43 @@ button {
 
 .contact-pinned-view {
   flex: 0 0 300px;
+}
+
+.contact-form {
+  margin: 20px 0;
+}
+
+.contact-form div {
+  margin-bottom: 10px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contact-form input,
+.contact-form select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.contact-form .error {
+  color: red;
+  font-size: 0.9em;
+}
+
+.contact-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
