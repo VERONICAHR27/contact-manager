@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 
 const ContactItem = ({ contact, onSelectContact, isSelected }) => {
   return (
-    <div className={`contact-item ${isSelected ? 'selected' : ''}`}>
+    <div className={`contact-item ${isSelected ? 'selected' : ''}`} onClick={() => onSelectContact(contact)}>
       <h3>{contact.fullname}</h3>
-      <button onClick={() => onSelectContact(contact)}>Select</button>
     </div>
   );
 };
