@@ -391,3 +391,8 @@ button {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+.error {
+  color: red;
+  font-size: 1em;
+}

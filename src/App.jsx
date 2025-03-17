@@ -4,20 +4,19 @@ import ContactList from './components/ContactList';
 import ContactPinned from './components/ContactPinned';
 import ContactForm from './components/ContactForm';
 import './App.css';
-import contactsData from './data/contact.json';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
-  const [contacts, setContacts] = useState(contactsData);
+  const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [pinnedContact, setPinnedContact] = useState(null);
   const [isCardView, setIsCardView] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
-  };
-
-  const handleClearContact = () => {
-    setSelectedContact(null);
   };
 
   const handleSelectContact = (contact) => {
@@ -32,8 +31,44 @@ const App = () => {
     setIsCardView(!isCardView);
   };
 
-  const addContact = (newContact) => {
-    setContacts([...contacts, newContact]);
+  const fetchContacts = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error('Error al cargar contactos');
+      }
+      const data = await response.json();
+      setContacts(data);
+    } catch (error) {
+      setErrorMessage('Error al cargar contactos');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const saveContact = async (data) => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Error al guardar contacto');
+      }
+      const newContact = await response.json();
+      setContacts((prevContacts) => [...prevContacts, newContact]);
+    } catch (error) {
+      setErrorMessage('Error al guardar contacto');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -42,9 +77,18 @@ const App = () => {
       <button onClick={toggleView}>
         {isCardView ? 'Switch to List View' : 'Switch to Card View'}
       </button>
+      <button onClick={fetchContacts} disabled={isLoading}>
+        {isLoading ? 'Loading...' : 'Fetch Contacts'}
+      </button>
+      {errorMessage && (
+        <div>
+          <p className="error">{errorMessage}</p>
+          <button onClick={fetchContacts}>Reintentar</button>
+        </div>
+      )}
       <div className="content">
         <div className="column">
-          <ContactForm addContact={addContact} />
+          <ContactForm addContact={saveContact} />
         </div>
         <div className="column">
           <ContactList
