@@ -1,41 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ContactItem from './ContactItem';
-import ContactCard from './ContactCard';
+import { useNavigate } from 'react-router-dom';
 
-const ContactList = ({ contacts, onContactClick, onSelectContact, selectedContact, isCardView }) => {
+const ContactList = ({ contacts }) => {
+  const navigate = useNavigate(); // Hook para redirigir a la ruta dinámica
+
+  if (!contacts || contacts.length === 0) {
+    return <p>No hay contactos disponibles.</p>;
+  }
+
   return (
-    <div className={isCardView ? 'contact-grid' : 'contact-list'}>
-      {contacts.map((contact, index) => (
-        <div key={index} onClick={() => onContactClick(contact)}>
-          {isCardView ? (
-            <ContactCard contact={contact} onSelectContact={onSelectContact} />
-          ) : (
-            <ContactItem
-              contact={contact}
-              onSelectContact={onSelectContact}
-              isSelected={selectedContact && selectedContact.fullname === contact.fullname}
-            />
-          )}
+    <div className="contact-list">
+      {contacts.map((contact) => (
+        <div key={contact.id} className="contact-item">
+          <h3
+            className="contact-name"
+            onClick={() => navigate(`/agenda/contact/${contact.id}`)} // Redirige a la ruta dinámica
+            style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+          >
+            {contact.fullname}
+          </h3>
         </div>
       ))}
     </div>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      fullname: PropTypes.string.isRequired,
-      phonenumber: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onContactClick: PropTypes.func.isRequired,
-  onSelectContact: PropTypes.func.isRequired,
-  selectedContact: PropTypes.object,
-  isCardView: PropTypes.bool.isRequired,
 };
 
 export default ContactList;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ContactPinned = ({ contact, onClearContact }) => {
+const ContactPinned = ({ contact }) => {
   if (!contact) {
     return null; // No mostrar nada si no hay contacto seleccionado
   }
@@ -13,7 +13,6 @@ const ContactPinned = ({ contact, onClearContact }) => {
       <p>Phone: {contact.phonenumber}</p>
       <p>Email: {contact.email}</p>
       <p>Type: {contact.type}</p>
-      <button onClick={onClearContact}>Limpiar</button>
     </div>
   );
 };
@@ -25,7 +24,6 @@ ContactPinned.propTypes = {
     email: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }),
-  onClearContact: PropTypes.func.isRequired,
 };
 
 export default ContactPinned;
