@@ -14,6 +14,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Cargar contactos desde localStorage al iniciar la aplicación
+  useEffect(() => {
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      setContacts(JSON.parse(storedContacts));
+    } else {
+      fetchData(); // Si no hay contactos en localStorage, cargar desde la API
+    }
+  }, []);
+
   const fetchData = async () => {
     setIsLoading(true);
     setErrorMessage('');
@@ -31,10 +41,58 @@ const App = () => {
       setIsLoading(false);
     }
   };
+  const saveContact = async (newContact) => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newContact),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to save contact');
+      }
+      const savedContact = await response.json();
+      const updatedContacts = [...contacts, savedContact];
+      setContacts(updatedContacts);
+    } catch (error) {
+      setErrorMessage('Ocurrió un error al guardar el contacto');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const handleAddContact = (newContact) => {
+    saveContact(newContact);
+  };
+
+  const handleSyncContacts = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error('Error al sincronizar contactos');
+      }
+      const data = await response.json();
+      setContacts(data); // Actualiza el estado con los nuevos contactos
+      localStorage.setItem('contacts', JSON.stringify(data)); // Guarda los contactos en LocalStorage
+      alert('Sincronización exitosa'); // Muestra un mensaje de éxito
+    } catch (error) {
+      setErrorMessage('Error al sincronizar contactos');
+      console.error('Error al sincronizar contactos:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+ 
+
+
+
 
   // Componente para manejar la ruta dinámica
   const ContactDetail = () => {
@@ -78,12 +136,12 @@ const App = () => {
         <Navbar />
         <Routes>
           {/* Ruta principal para la agenda */}
-          <Route path="/agenda" element={<ContactListPage contacts={contacts} />}>
+          <Route path="/agenda" element={<ContactListPage contacts={contacts} onSyncContacts={handleSyncContacts} />}>
             {/* Rutas anidadas para tipos de contacto */}
             <Route path=":type" element={<ContactType />} />
           </Route>
           {/* Ruta para el formulario */}
-          <Route path="/formulario" element={<ContactFormPage />} />
+          <Route path="/formulario" element={<ContactFormPage addContact={handleAddContact} />} />
           {/* Ruta dinámica para los detalles del contacto */}
           <Route path="/agenda/contact/:id" element={<ContactDetail />} />
         </Routes>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-
 const ContactForm = ({ addContact }) => {
   const [fullname, setFullname] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
@@ -25,7 +24,7 @@ const ContactForm = ({ addContact }) => {
     const newContact = { fullname, phonenumber, email, type };
     addContact(newContact);
 
-    // Clear form
+    // Limpia el formulario
     setFullname('');
     setPhonenumber('');
     setEmail('');
