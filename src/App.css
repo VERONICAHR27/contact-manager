@@ -1,398 +1,209 @@
+/* General */
 :root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+/* Contenedor principal */
 .App {
   text-align: center;
 }
 
-button {
-  margin: 20px;
-}
-
-.content {
+/* Header */
+.header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.column {
-  flex: 1;
-  margin: 0 10px;
-}
-
-.contact-form {
-  margin: 20px 0;
-}
-
-.contact-form div {
-  margin-bottom: 10px;
-}
-
-.contact-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.contact-form input,
-.contact-form select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-.contact-form .error {
-  color: red;
-  font-size: 0.9em;
-}
-
-.contact-form button {
-  padding: 10px 20px;
-  background-color: #007bff;
+  justify-content: left;
+  align-items: center; /* Centra verticalmente el contenido */
+  padding-left: 1rem; /* Espaciado interno a la izquierda */
+  background: black;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.contact-form button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.contact-item {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  cursor: pointer;
-  white-space: nowrap; /* Evita que el texto se envuelva */
-  overflow: hidden; /* Oculta el texto que se desborda */
-  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
-}
-
-.contact-item.selected {
-  background-color: #e0f7fa;
-}
-
-.contact-item h3 {
-  margin: 0;
-  font-size: 1.2em;
-  white-space: nowrap; /* Evita que el texto se envuelva */
-  overflow: hidden; /* Oculta el texto que se desborda */
-  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
-}
-
-.contact-pinned {
-  border: 2px solid #000;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.contact-pinned h2 {
-  margin-top: 0;
-}
-
-.contact-pinned h3 {
-  margin: 10px 0;
-}
-
-.contact-pinned p {
-  margin: 5px 0;
-}
-
-.contact-pinned button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.contact-pinned button:hover {
-  background-color: #0056b3;
-}
-
-.contact-card {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.contact-card h3 {
-  margin-top: 0;
-}
-
-.contact-card p {
-  margin: 5px 0;
-}
-
-.contact-card button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.contact-card button:hover {
-  background-color: #0056b3;
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  gap: 20px; /* Espacio entre las tarjetas */
-}
-
-.read-the-docs {
-  color: #888;
-  margin-top: 2em;
-}
-
-.contact-cards {
+/* Navbar */
+.navbar {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem; /* Espaciado entre los elementos */
+  background:#f9f8f8;
+}
+
+.navbar a {
+  text-decoration: none; /* Eliminar subrayado */
+  color: black;
+  font-size: 1rem; /* Tamaño de fuente */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  transition: all 0.3s ease; /* Transición para hover */
+}
+.navbar a:hover {
+  background-color:black;
+  color: white; 
+}
+
+
+
+
+
+
+/* Formularios */
+form {
+  display: flex;
+  flex-direction: column; /* Alinear los elementos en columna */
+  gap: 1rem; /* Espaciado entre los campos */
+}
+
+form label {
+  font-weight: bold; /* Texto en negrita */
+  margin-bottom: 0.5rem; /* Espaciado debajo del label */
+}
+
+form input,
+form select {
+  padding: 0.5rem; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño de fuente */
+  width: 100%; /* Ocupa todo el ancho */
+  box-sizing: border-box; /* Incluye padding en el ancho */
+}
+
+form input:focus,
+form select:focus {
+  border-color: var(--primary-color); /* Cambiar el color del borde al enfocar */
+  outline: none; /* Eliminar el contorno predeterminado */
+}
+
+.contact-list-page .button-group {
+  display: flex;
+  gap: 5rem; /* Espaciado entre los botones */
   justify-content: center;
 }
 
-.contact-card {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.contact-list-page button:hover {
+  background-color: #131313; /* Fondo más oscuro al pasar el mouse */
+  color: white; /* Texto blanco al pasar el mouse */
 }
 
-.contact-card h3 {
-  margin-top: 0;
-}
-
-.contact-detail {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin: 1rem 0;
-  background-color: #f9f9f9;
-}
-
-.header {
-  display: block;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #282c34;
-  color: white;
-}
-
-.header h1 {
-  margin: 0;
-}
-
-.contact-item {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  cursor: pointer;
-  white-space: nowrap; /* Evita que el texto se envuelva */
-  overflow: hidden; /* Oculta el texto que se desborda */
-  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
-}
-
-.contact-item.selected {
-  background-color: #bcddeb;
-}
-
-.contact-item h3 {
-  margin: 0;
-  font-size: 1.2em;
-  white-space: nowrap; /* Evita que el texto se envuelva */
-  overflow: hidden; /* Oculta el texto que se desborda */
-  text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto que se desborda */
-}
-
-.contact-pinned {
-  border: 2px solid #000;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.contact-pinned h2 {
-  margin-top: 0;
-}
-
-.contact-pinned h3 {
-  margin: 10px 0;
-}
-
-.contact-pinned p {
-  margin: 5px 0;
-}
-
-.contact-pinned button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.contact-pinned button:hover {
-  background-color: #0056b3;
-}
-
-.contact-card {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.contact-card h3 {
-  margin-top: 0;
-}
-
-.contact-card p {
-  margin: 5px 0;
-}
-
-.contact-card button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.contact-card button:hover {
-  background-color: #0056b3;
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  gap: 20px; /* Espacio entre las tarjetas */
-}
-
-.pinned-contact {
-  border: 2px solid #000;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.pinned-contact h2 {
-  margin-top: 0;
-}
-
-.pinned-contact h3 {
-  margin: 10px 0;
-}
-
-.pinned-contact p {
-  margin: 5px 0;
-}
-
-.pinned-contact button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.pinned-contact button:hover {
-  background-color: #0056b3;
-}
-
-.App {
-  text-align: center;
-}
-
-button {
-  margin: 20px;
-}
-
-.content {
+/* Contenedor del buscador */
+.contact-list-page .search-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-end; /* Alinea el buscador hacia la derecha */
+  width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+}
+/* Lista de contactos */
+.contact-list-page ul {
+  list-style: none; /* Eliminar viñetas */
+  
 }
 
-.contact-view {
-  flex: 1;
-  margin-right: 20px;
+.contact-list-page ul li {
+  padding: 1rem; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  margin-bottom: 1rem; /* Espaciado inferior entre elementos */
+}
+.contact-list-page ul li:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al pasar el mouse */
 }
 
-.contact-pinned-view {
-  flex: 0 0 300px;
+/* Estilo para el contenedor de botones */
+.contact-list-page .button-group {
+  display: flex; /* Organiza los botones en una fila */
+  gap: 1rem; /* Espaciado entre los botones */
+  justify-content: center; /* Centra los botones horizontalmente */
+  margin-top: 1rem; /* Espaciado superior */
 }
 
-.contact-form {
-  margin: 20px 0;
+/* Estilo para los botones dentro del contenedor */
+.contact-list-page .button-group button {
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: all 0.3s ease; /* Transición para hover */
 }
 
-.contact-form div {
-  margin-bottom: 10px;
+
+/* Estilo para el elemento de la lista */
+.contact-item {
+  display: flex;
+  justify-content: space-between; /* Espaciado entre el nombre y los botones */
+  align-items: center; /* Centra verticalmente los elementos */
+  padding: 1rem; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  margin-bottom: 1rem; /* Espaciado inferior */
+  background-color: white; /* Fondo blanco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: all 0.3s ease; /* Transición para hover */
 }
 
-.contact-form label {
-  display: block;
-  margin-bottom: 5px;
+.contact-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más fuerte al pasar el mouse */
 }
 
-.contact-form input,
-.contact-form select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+/* Estilo para el enlace del contacto */
+.contact-item .contact-link {
+  text-decoration: none; /* Eliminar subrayado */
+  color: #007bff; /* Color azul */
+  font-size: 1.2rem; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
 }
 
-.contact-form .error {
-  color: red;
-  font-size: 0.9em;
+.contact-item .contact-link:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse */
 }
 
-.contact-form button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+/* Contenedor de botones */
+.contact-item .button-group {
+  display: flex;
+  gap: 0.5rem; /* Espaciado entre los botones */
 }
 
-.contact-form button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+/* Botón de editar */
+.contact-item .edit-button {
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #4caf50; /* Fondo verde */
+  color: white; /* Texto blanco */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: all 0.3s ease; /* Transición para hover */
 }
 
-.error {
-  color: red;
-  font-size: 1em;
+.contact-item .edit-button:hover {
+  background-color: #45a049; /* Fondo más oscuro al pasar el mouse */
 }
+
+/* Botón de eliminar */
+.contact-item .delete-button {
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #f44336; /* Fondo rojo */
+  color: white; /* Texto blanco */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: all 0.3s ease; /* Transición para hover */
+}
+
+.contact-item .delete-button:hover {
+  background-color: #d32f2f; /* Fondo más oscuro al pasar el mouse */
+}
+
+/* Estilo para los enlaces dentro de los botones */
+.contact-item .button-link {
+  text-decoration: none; /* Eliminar subrayado */
+  color: white; /* Texto blanco */
+  font-size: 1rem; /* Tamaño de fuente */
+}
+
+.contact-item .button-link:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+
+

@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ContactForm = ({ addContact }) => {
+const ContactForm = ({ addContact, editContact, contactToEdit }) => {
   const [fullname, setFullname] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
   const [email, setEmail] = useState('');
   const [type, setType] = useState('familia');
   const [errors, setErrors] = useState({});
 
+  // Cargar los datos del contacto a editar si existe
+  useEffect(() => {
+    if (contactToEdit) {
+      setFullname(contactToEdit.fullname);
+      setPhonenumber(contactToEdit.phonenumber);
+      setEmail(contactToEdit.email);
+      setType(contactToEdit.type);
+    } else {
+      // Limpiar el formulario si no se está editando
+      setFullname('');
+      setPhonenumber('');
+      setEmail('');
+      setType('familia');
+    }
+  }, [contactToEdit]);
+
   const validate = () => {
     const newErrors = {};
-    if (!fullname) newErrors.fullname = 'Full name is required';
-    if (!phonenumber) newErrors.phonenumber = 'Phone number is required';
-    if (!email) newErrors.email = 'Email is required';
+    if (!fullname) newErrors.fullname = 'El nombre es obligatorio';
+    if (!phonenumber) newErrors.phonenumber = 'El número de teléfono es obligatorio';
+    if (!email) newErrors.email = 'El correo electrónico es obligatorio';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -22,62 +38,67 @@ const ContactForm = ({ addContact }) => {
     if (!validate()) return;
 
     const newContact = { fullname, phonenumber, email, type };
-    addContact(newContact);
+    if (contactToEdit) {
+      editContact({ ...contactToEdit, ...newContact }); // Editar contacto existente
+    } else {
+      addContact(newContact); // Crear nuevo contacto
+    }
 
-    // Limpia el formulario
-    setFullname('');
-    setPhonenumber('');
-    setEmail('');
-    setType('familia');
-    setErrors({});
+    // Limpiar el formulario después de agregar un contacto
+    if (!contactToEdit) {
+      setFullname('');
+      setPhonenumber('');
+      setEmail('');
+      setType('familia');
+    }
   };
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
-        <label>Full Name</label>
+        <label>Nombre:</label>
         <input
           type="text"
           value={fullname}
           onChange={(e) => setFullname(e.target.value)}
         />
-        {errors.fullname && <span className="error">{errors.fullname}</span>}
+        {errors.fullname && <p>{errors.fullname}</p>}
       </div>
       <div>
-        <label>Phone Number</label>
+        <label>Teléfono:</label>
         <input
           type="text"
           value={phonenumber}
           onChange={(e) => setPhonenumber(e.target.value)}
         />
-        {errors.phonenumber && <span className="error">{errors.phonenumber}</span>}
+        {errors.phonenumber && <p>{errors.phonenumber}</p>}
       </div>
       <div>
-        <label>Email</label>
+        <label>Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {errors.email && <span className="error">{errors.email}</span>}
+        {errors.email && <p>{errors.email}</p>}
       </div>
       <div>
-        <label>Type</label>
+        <label>Tipo:</label>
         <select value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="social">Social</option>
           <option value="familia">Familia</option>
           <option value="trabajo">Trabajo</option>
-          <option value="social">Social</option>
         </select>
       </div>
-      <button type="submit" disabled={!fullname || !phonenumber || !email}>
-        Guardar
-      </button>
+      <button type="submit">{contactToEdit ? 'Guardar Cambios' : 'Agregar Contacto'}</button>
     </form>
   );
 };
 
 ContactForm.propTypes = {
   addContact: PropTypes.func.isRequired,
+  editContact: PropTypes.func,
+  contactToEdit: PropTypes.object,
 };
 
 export default ContactForm;

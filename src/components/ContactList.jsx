@@ -15,7 +15,6 @@ const ContactList = ({ contacts }) => {
           <h3
             className="contact-name"
             onClick={() => navigate(`/agenda/contact/${contact.id}`)} // Redirige a la ruta dinámica
-            style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
           >
             {contact.fullname}
           </h3>

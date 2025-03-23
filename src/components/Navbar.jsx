@@ -8,14 +8,14 @@ const Navbar = () => {
         to="/agenda"
         className={({ isActive }) => (isActive ? 'active' : '')}
       >
-        Agenda de Contactos
+        Inicio
       </NavLink>
       
       <NavLink
         to="/formulario"
         className={({ isActive }) => (isActive ? 'active' : '')}
       >
-        Formulario de Creación
+        Agregar Contacto
       </NavLink>
     </nav>
   );
