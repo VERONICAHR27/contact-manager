@@ -40,6 +40,7 @@ const ContactListPage = ({ contacts, onSyncContacts, onDeleteContact, }) => {
         <button onClick={handleSaveContacts}>Guardar Contactos</button>
         <button onClick={onSyncContacts}>Sincronizar Datos</button>
       </div>
+      
       <nav>
         <Link to="/agenda/social">Social</Link> | <Link to="/agenda/familia">Familia</Link> | <Link to="/agenda/trabajo">Trabajo</Link>
       </nav>
@@ -51,6 +52,7 @@ const ContactListPage = ({ contacts, onSyncContacts, onDeleteContact, }) => {
             <ContactItem key={contact.id} contact={contact} onDeleteContact={onDeleteContact} />
           ))}
         </ul>
+
       )}
     </div>
   );

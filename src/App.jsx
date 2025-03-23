@@ -89,21 +89,55 @@ const App = () => {
     }
   };
 
-  const handleEditContact = (updatedContact) => {
-    const updatedContacts = contacts.map((contact) =>
-      contact.id === updatedContact.id ? updatedContact : contact
-    );
-    setContacts(updatedContacts);
-    localStorage.setItem('contacts', JSON.stringify(updatedContacts)); // Actualizar en localStorage
+  const handleEditContact = async (updatedContact) => {
+    try {
+      // Realizar una solicitud PUT o PATCH para actualizar el contacto en el servidor
+      const response = await fetch(`${API_URL}/${updatedContact.id}`, {
+        method: 'PUT', // O 'PATCH' si solo actualizas campos específicos
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedContact),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al actualizar el contacto');
+      }
+  
+      const updatedContactFromServer = await response.json();
+  
+      // Actualizar el estado local con los datos del servidor
+      const updatedContacts = contacts.map((contact) =>
+        contact.id === updatedContactFromServer.id ? updatedContactFromServer : contact
+      );
+      setContacts(updatedContacts);
+  
+      // Actualizar en localStorage
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+    } catch (error) {
+      console.error('Error al actualizar el contacto:', error);
+      setErrorMessage('Ocurrió un error al actualizar el contacto.');
+    } finally {
+      setIsLoading(false); // Finalizar la operación
+    }
   };
 
-  const handleDeleteContact = (id) => {
+  const handleDeleteContact = async (id) => {
     const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este contacto?');
     if (confirmDelete) {
-      const updatedContacts = contacts.filter((contact) => contact.id !== id);
-      setContacts(updatedContacts); // Actualiza el estado global
-      localStorage.setItem('contacts', JSON.stringify(updatedContacts)); // Actualiza en localStorage
-      alert('Contacto eliminado correctamente.');
+      try {
+        const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        if (!response.ok) {
+          throw new Error('Error al eliminar el contacto');
+        }
+        const updatedContacts = contacts.filter((contact) => contact.id !== id);
+        setContacts(updatedContacts);
+        localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+        alert('Contacto eliminado correctamente.');
+      } catch (error) {
+        console.error('Error al eliminar el contacto:', error);
+        alert('Ocurrió un error al eliminar el contacto.');
+      }
     }
   };
 
